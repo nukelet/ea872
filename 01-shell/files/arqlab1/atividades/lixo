@@ -1,0 +1,31 @@
+#! /bin/sh
+
+# uso:
+# pro_lixo l: lista os arquivos na lixeira ($HOME/lixo)
+# pro_lixo r: "esvazia" a lixeira (deleta tudo dentro de $HOME/lixo)
+# pro_lixo [FILE]...: move uma lista de arquivos pra lixeira
+#
+# serve como uma alternativa ao `rm`, movendo arquivos para a lixeira em vez
+# de deleta-los imediatamente
+
+# testa se a lixeira ja existe, caso contrario cria o diretorio
+test -d $HOME/lixo || mkdir $HOME/lixo
+# caso nao tenha argumentos, aborta com status 1
+test 0 eq "$#" && exit 1;
+
+case $1 in
+    l) ls $HOME/lixo;; # l -> lista os arquivos da lixeira
+    r) case $# in      # r -> esvazia a lixeira
+        # se `pro_lixo r`, salva o dir atual, entra na lixeira, deleta tudo, volta pro dir original
+        1) aux=$PWD; cd $HOME/lixo; rm -rf *; cd $aux;;
+        *) echo pro_lixo: Uso incorreto;; # se argc != 1 (`pro_lixo r`), printa erro
+    esac;;
+    # itera pela lista e move os arquivos pra lixeira
+    *) for i in $*
+        do
+            if test -f $i # checa se o arquivo existe
+            then mv $i $HOME/lixo # se sim, move pra lixeira
+            else echo pro_lixo: Arquivo $i nao encontrado. # caso contrario printa erro
+            fi
+        done;;
+esac

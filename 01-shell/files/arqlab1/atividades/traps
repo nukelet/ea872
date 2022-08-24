@@ -1,0 +1,19 @@
+#! /bin/sh
+
+ARQUIVO=arq.$$
+touch $ARQUIVO  # cria uma arquivo arq.PID, com o PID do processo
+
+# registra traps (um comando a ser executado mediante o recebimento de um
+# determinado signal, mesmo principio que o sighandler_t do signal.h)
+
+# trap para SIGTERM, deleta arq.PID e printa erro
+trap "echo 'Algum processo enviou um TERM' 1>&2; rm -f $ARQUIVO; exit;" 15
+# trap para SIGINT, deleta arq.PID e printa erro
+trap "echo 'Algum processo enviou um INT' 1>&2; rm -f $ARQUIVO; exit;" 2
+
+# loop infinito, checa a cada 5 segundos se recebeu algum sinal
+while true
+  do
+  # Espera 5 segundos
+  sleep 5
+done

@@ -1,0 +1,26 @@
+#! /bin/sh 
+
+echo menu # printa "menu"
+stop=0    # inicializa flag
+while test $stop -eq 0 # enquanto flag != 0
+  do 
+  echo                 # imprime newline
+
+  # here-document (usa o texto desse script como stdin pro `cat`)
+  # ou seja, printa essa multi-line string
+  cat <<FIMDOMENU
+1 : imprime a data 
+2,3 : imprime o diretorio corrente 
+4 : fim
+FIMDOMENU
+  echo              # imprime newline
+  echo 'opcao? '    # imprime "opcao? "
+  read op           # le do stdin 
+  echo              # imprime newline 
+  case $op in       # faz match da entrada com 1, 2, 3, 4
+      1) date;;     # imprime a data 
+      2|3) pwd;;    # imprime o diretorio atual 
+      4) stop=1;;   # seta a flag de parada 
+      *) echo  opcao invalida! ;; # erro caso nao haja match
+  esac 
+done

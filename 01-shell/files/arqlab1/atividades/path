@@ -1,0 +1,15 @@
+#! /bin/sh
+
+for DIRPATH in `echo $PATH | sed 's/:/ /g'` # troca o separador ":" do $PATH por um whitespace
+do                                          # de modo a conseguir iterar por eles como uma lista
+  if [ ! -d $DIRPATH ]                      # 1: se $DIRPATH nao (!) e um diretorio (-d)
+      then
+      if [ -f $DIRPATH ]                            # 2: se $DIRPATH eh um arquivo (-f)
+	  then
+	  echo "$DIRPATH nao e diretorio, e um arquivo" # 2: printa erro, e um arquivo
+	  else                                          # 2: caso contrario...
+	  echo "$DIRPATH nao existe"                    # 2: printa erro, nao existe
+      fi                                            # 2: fim do condicional
+  fi                                        # 1: fim do condicional
+done
+

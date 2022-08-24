@@ -1,0 +1,65 @@
+#! /bin/sh
+
+SCRIPT_PATH=$(realpath "$0")
+
+if [ $# -eq 0 ] # se nao ha argumentos...
+then
+    set $PWD    # seta $1 para $PWD
+fi
+
+for ARG in $*   # itera pela arglist 
+do
+    case $ARG in  # da match nos argumentos
+        --prof=*)
+            # extrai o valor de profundidade (numero), do argumento
+            # separando em dois grupos (--prof, <numero>) com separador
+            # '='
+            PROFUNDIDADE=`echo $ARG | cut -f 2 -d '='`
+            ;;
+        *)
+
+      # se $ARG e um diretorio...
+      if [ -d $ARG ]
+      then
+          # $CONT recebe o valor de $PROFUNDIDADE (ou 0, caso
+          # nao esteja setado)
+          CONT=${PROFUNDIDADE=0}
+          # enquanto $CONT e maior que 0...
+          while [ $CONT -gt 0 ]
+          do
+              # printa whitespaces para "indentar" a arvore
+              # de diretorios
+              # 2 whitespaces = 1 nivel de profundidade
+              echo -n "  "
+              CONT=`expr $CONT - 1`
+          done
+          # print o nome do diretorio
+          echo "+$ARG"
+          # entra no diretorio
+          cd $ARG
+          # chama a si mesmo recursivamente para cada arquivo
+          # no diretorio, com profundidade incrementada de 1
+          for NAME in *
+          do
+              ${SCRIPT_PATH} --prof=`expr $PROFUNDIDADE + 1` $NAME
+          done
+      else
+          if [ -f $ARG ]
+          then
+              # mesma ideia, printa whitespaces para 
+              # "indentar" a arvore, mas dessa vez nao
+              # chama a si mesmo recursivamente (visto que
+              # eh um arquivo e nao uma pasta)
+              CONT=${PROFUNDIDADE=0}
+              while [ $CONT -gt 0 ]
+              do
+                  echo -n "  "
+                  CONT=`expr $CONT - 1`
+              done
+              echo "-$ARG"
+          fi
+      fi
+      ;;
+esac
+done
+

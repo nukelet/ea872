@@ -1,0 +1,25 @@
+#! /bin/sh 
+
+case $# in # checa se o numero de argumentos eh 2
+    # caso contrario printa erro no stderr e sai com codigo de erro 2
+    # (misuse of shell command)
+    0|1|[3-9]) echo  Uso: classifica arquivo1 arquivo2  1>&2; exit 2 ;; 
+esac 
+total=0; perdida=0; 
+while read novalinha # le do stdin ate encontrar o EOF
+  do total=`expr $total + 1` # incrementa o contador de linhas lidas
+  case "$novalinha" in       # da match na linha
+      # se possui somente letras, escreve linha em arquivo1
+      *[A-Za-z]*) echo "$novalinha" >> $1 ;;
+      # se possui somente numeros, escreve linha em arquivo2
+      *[0-9]*) echo "$novalinha" >> $2 ;; 
+      # se encontrar a sequencia "<>", interrompe loop
+      '<>') break;; 
+      # caso contrario, nao escreve a linha e incrementa o contador de linhas perdidas
+      *) perdida=`expr $perdida + 1`;; 
+  esac 
+done 
+
+# printa o total de linhas lidas (e escritas em arquivos) e o de linhas perdidas
+# (faz $total - 1 porque o "<>" incrementa o contador mas nao e aproveitado)
+echo "`expr $total - 1` linha(s) lida(s), $perdida linha(s) nao aproveitada(s)"
