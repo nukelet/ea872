@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\usepackage[portuguese]{babel}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage[section]{placeins}
+
+\title{Atividade em aula 02}
+\author{Vinícius de Oliveira Peixoto Rodrigues (245294)}
+\date{Agosto de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Questão 1}
+\subsection*{Item (a)}
+
+É necessário colocar o \texttt{./} porque a pasta onde fica o executável gerado não está no \texttt{\$PATH}. Os outros programas (\texttt{gcc}, \texttt{flex}, \texttt{bison}) estão todos em pastas contidas no \texttt{\$PATH} (provavelmente \texttt{/usr/bin} ou \texttt{/usr/local/bin}).
+
+\subsection*{Item (b)}
+
+É possível fazer
+
+\begin{center}
+    \texttt{\$ export PATH=\$PWD:\$PATH}
+\end{center}
+
+para temporariamente adicionar a pasta local (onde fica o executável) ao \texttt{\$PATH}.
+
+\subsection*{Item (c)}
+
+\begin{enumerate}
+    \item O \textit{lexer} gerado dá \textit{match} em letras minúsculas (\texttt{[a-z]})
+    \item Em seguida, converte para maíuscula calculando, para um dado caractere \texttt{c}, \texttt{c - ('a' - 'A')} (letras minúsculas tem valor ASCII do que maiúsculas)
+\end{enumerate}
+
+Desse modo, o lexer converte todas as minúsculas em um texto para maiúsculas.
+
+\section*{Questão 2}
+\subsection*{Item (a)}
+
+\begin{enumerate}
+    \item O \textit{lexer} dá \textit{match} em expressões da forma \texttt{"<whitespace> <numero>:"}, onde \texttt{numero} tem dois digitos e fica entre 00 e 23
+
+    \item Agrupa números entre 00 e 11 no símbolo \texttt{AM} e números entre 12 e 23 no símbolo \texttt{PM}
+    \item Em seguida, lê "come" o token como um número inteiro e calcula o horário correspondente em AM/PM
+\end{enumerate}
+
+\subsection*{Item (b)}
+
+O pipe redireciona o output do primeiro comando (\texttt{date}) para o \texttt{stdin} do programa \texttt{p\_b}
+
+\subsection*{Item (c)}
+
+É possível redirecionar a saída de \texttt{date} para um arquivo, e aí redirecionar o arquivo para o \texttt{stdin} de \texttt{p\_b}:
+
+\begin{center}
+    \texttt{\$ date > tmp}
+
+    \texttt{\$ p\_b < tmp}
+\end{center}
+
+\end{document}
