@@ -8,59 +8,107 @@
 
 \usepackage[section]{placeins}
 
-\title{Atividade em aula 02}
+\title{Relatório 03}
 \author{Vinícius de Oliveira Peixoto Rodrigues (245294)}
 \date{Agosto de 2022}
 
 \begin{document}
 \maketitle
 
-\section*{Questão 1}
-\subsection*{Item (a)}
+\section*{Item (c)}
 
-É necessário colocar o \texttt{./} porque a pasta onde fica o executável gerado não está no \texttt{\$PATH}. Os outros programas (\texttt{gcc}, \texttt{flex}, \texttt{bison}) estão todos em pastas contidas no \texttt{\$PATH} (provavelmente \texttt{/usr/bin} ou \texttt{/usr/local/bin}).
-
-\subsection*{Item (b)}
-
-É possível fazer
+O analisador léxico serve como um transpilador, convertendo código em uma linguagem arbitrária para código em C. A tabela abaixo lista as substituições mais simples feitas pelo lexer:
 
 \begin{center}
-    \texttt{\$ export PATH=\$PWD:\$PATH}
+\begin{tabular}{ |c|c|c| }
+    \hline
+    \textbf{símbolo} & \textbf{tradução em C} & \textbf{observação} \\ \hline
+    \texttt{\{...\}} & \texttt{/*...*/} & \\ \hline
+    \texttt{mod} & \texttt{\%} & \\ \hline
+    \texttt{or} & \texttt{||} & \\ \hline
+    \texttt{and} & \texttt{\&\&} & \\ \hline
+    \texttt{:=} & \texttt{=} & \\ \hline
+    \texttt{<>} & \texttt{==} & \\ \hline
+    \texttt{><} & \texttt{!=} & \\ \hline
+    \texttt{><} & \texttt{!=} & \\ \hline
+    \texttt{><} & \texttt{!=} & \\ \hline
+    \texttt{var} &  & ignorado quando em uma linha isolada \\ \hline
+    \texttt{bar} &  & ignorado quando em uma linha isolada \\ \hline
+    \texttt{.} &  & ignorado \\ \hline
+\end{tabular}
 \end{center}
 
-para temporariamente adicionar a pasta local (onde fica o executável) ao \texttt{\$PATH}.
+Além dessas substituições simples, há duas coisas importantes. A primeira é que o seguinte pattern:
 
-\subsection*{Item (c)}
+tem a intenção de dar match em expressões da forma
+\begin{verbatim}
+program <program_name>(<params>);
+\end{verbatim}
 
-\begin{enumerate}
-    \item O \textit{lexer} gerado dá \textit{match} em letras minúsculas (\texttt{[a-z]})
-    \item Em seguida, converte para maíuscula calculando, para um dado caractere \texttt{c}, \texttt{c - ('a' - 'A')} (letras minúsculas tem valor ASCII do que maiúsculas)
-\end{enumerate}
+apesar de consumir agressivamente qualquer linha que comece com
 
-Desse modo, o lexer converte todas as minúsculas em um texto para maiúsculas.
+\begin{verbatim}
+program[qualquer coisa](
+\end{verbatim}
 
-\section*{Questão 2}
-\subsection*{Item (a)}
+Ao fazer match desse padrão, o programa "abre" a definição de função \texttt{main() \{}, que só é "fechada" depois pela keyword \texttt{end}, que será substituída pela chave de fechamento (\texttt{\}}). Desse modo, o programa inteiro se encontra dentro da \texttt{main()} transpilada.
 
-\begin{enumerate}
-    \item O \textit{lexer} dá \textit{match} em expressões da forma \texttt{"<whitespace> <numero>:"}, onde \texttt{numero} tem dois digitos e fica entre 00 e 23
+Outro ponto importante é a declaração de variáveis inteiras, na seguinte forma:
 
-    \item Agrupa números entre 00 e 11 no símbolo \texttt{AM} e números entre 12 e 23 no símbolo \texttt{PM}
-    \item Em seguida, lê "come" o token como um número inteiro e calcula o horário correspondente em AM/PM
-\end{enumerate}
+\begin{verbatim}
+var
+    <varlist> : integer;
+\end{verbatim}
 
-\subsection*{Item (b)}
+onde o lexer descarta (ignora) a keyword \texttt{var} e dá match segundo a regra
 
-O pipe redireciona o output do primeiro comando (\texttt{date}) para o \texttt{stdin} do programa \texttt{p\_b}
+\begin{verbatim}
+^.*integer;     ShuffleInt();
+\end{verbatim}
 
-\subsection*{Item (c)}
+ou seja, consumindo a nova linha seguinte inteira (por isso o \texttt{\textasciicircum}) desde que ela termine em \texttt{integer}. A função \texttt{ShuffleInt()}, por sua vez, faz o parse da lista de argumentos (basicamente fazendo o prepend da keyword \texttt{int} e copiando caractere por caractere tudo que vem antes de \texttt{: integer;}) (por isso a condição de parada \texttt{yytext[i] != ':'}).
 
-É possível redirecionar a saída de \texttt{date} para um arquivo, e aí redirecionar o arquivo para o \texttt{stdin} de \texttt{p\_b}:
+\newpage
+\section*{Item (d)}
 
-\begin{center}
-    \texttt{\$ date > tmp}
+O programa cria a \textit{start condition} \texttt{Palavra}:
 
-    \texttt{\$ p\_b < tmp}
-\end{center}
+\begin{verbatim}
+    %START Palavra
+\end{verbatim}
+
+E cria também as labels \texttt{NovaLinha}, \texttt{Espaco} e \texttt{NovaPagina}. Em seguida, sempre que o lexer encontra uma dessas três ocorrências, incrementa o contador adequado. 
+Sempre que for encontrado algo que não corresponde a nenhum dentre os três casos \texttt{NovaLinha}, \texttt{Espaco} e \texttt{NovaPagina}, o parser incrementa o contador de palavras e passa para o estado \texttt{Palavra}, onde ele consome caracteres até encontrar \texttt{NovaLinha}, \texttt{Espaco} ou \texttt{NovaPagina}.
+Quando isso ocorre, o parser retorna pro estado 0 (inicial) e o ciclo de consumir todos os \texttt{NovaLinha}/\texttt{Espaco}/\texttt{NovaPagina} subsequentes $\rightarrow$ trocar para o estado \texttt{Palavra} e consumir todos os caracteres até o próximo espaço/newline/newpage se repete até ser encontrado o EOF.
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/item_d.png}
+        \caption{Testes do lexer \texttt{p\_d}}
+    \end{center}
+\end{figure} 
+
+\newpage
+\section*{Item (e)}
+
+O programa dá match em números escritos em formato octal e os imprime em formato decimal, utilizando o \texttt{sscanf()} com o formatador \texttt{"\%o"} para ler o número e guardar na variável \texttt{valor}, e o \texttt{printf("\%d", valor)} para imprimi-lo em decimal.
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/item_e.png}
+        \caption{Testes do lexer \texttt{p\_e}}
+    \end{center}
+\end{figure} 
+
+\section*{Itens (f) e (g)}
+
+Os scripts se encontram em anexo.
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/item_g.png}
+        \caption{Testes do lexer \texttt{p\_g}}
+    \end{center}
+\end{figure} 
 
 \end{document}

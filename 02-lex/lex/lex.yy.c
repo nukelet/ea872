@@ -321,6 +321,7 @@ void yyfree ( void *  );
 	}
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
+/* Begin user sect3 */
 typedef flex_uint8_t YY_CHAR;
 
 FILE *yyin = NULL, *yyout = NULL;
@@ -350,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 4
-#define YY_END_OF_BUFFER 5
+#define YY_NUM_RULES 3
+#define YY_END_OF_BUFFER 4
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -359,10 +360,10 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[15] =
+static const flex_int16_t yy_accept[17] =
     {   0,
-        0,    0,    5,    3,    4,    3,    0,    0,    0,    0,
-        0,    2,    1,    0
+        0,    0,    4,    2,    3,    2,    0,    0,    0,    0,
+        0,    0,    1,    0,    1,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -370,9 +371,9 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    3,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    4,    5,    6,
-        7,    8,    9,   10,   11,   12,   13,   14,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    3,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    4,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -397,40 +398,35 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[15] =
+static const YY_CHAR yy_meta[5] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1
+        1,    1,    2,    3
     } ;
 
-static const flex_int16_t yy_base[16] =
+static const flex_int16_t yy_base[26] =
     {   0,
-        0,    2,   35,   36,   36,    2,    5,   15,   25,   20,
-       19,   36,   36,   36,    0
+        0,    0,   14,   15,   15,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,   15,   15,   10,   10,    8,    7,
+        7,    5,    4,    3,    2
     } ;
 
-static const flex_int16_t yy_def[16] =
+static const flex_int16_t yy_def[26] =
     {   0,
-       15,   15,   14,   14,   14,   14,   14,   14,   14,   14,
-       14,   14,   14,    0,   14
+       16,    1,   16,   16,   16,   17,   18,   19,   20,   21,
+       22,   23,   24,   25,   16,    0,   16,   16,   16,   16,
+       16,   16,   16,   16,   16
     } ;
 
-static const flex_int16_t yy_nxt[51] =
+static const flex_int16_t yy_nxt[20] =
     {   0,
-        4,    5,    6,    5,    6,    7,    8,    9,   10,   10,
-       10,   10,   10,   10,   10,   10,   10,   10,   10,   10,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       11,   11,   13,   12,   14,    3,   14,   14,   14,   14,
-       14,   14,   14,   14,   14,   14,   14,   14,   14,   14
+        4,    5,    4,    6,   15,   14,   13,   12,   11,   10,
+        9,    8,    7,   16,    3,   16,   16,   16,   16
     } ;
 
-static const flex_int16_t yy_chk[51] =
+static const flex_int16_t yy_chk[20] =
     {   0,
-       15,    1,    1,    2,    2,    6,    6,    6,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    7,    8,    8,
-        8,    8,    8,    8,    8,    8,    8,    8,    9,    9,
-        9,    9,   11,   10,    3,   14,   14,   14,   14,   14,
-       14,   14,   14,   14,   14,   14,   14,   14,   14,   14
+        1,    1,    1,    1,   25,   24,   23,   22,   21,   20,
+       19,   18,   17,    3,   16,   16,   16,   16,   16
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -447,11 +443,24 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "p_b.l"
-#line 2 "p_b.l"
-	int h;
-#line 453 "lex.yy.c"
-#line 454 "lex.yy.c"
+#line 1 "p_g.l"
+#line 2 "p_g.l"
+char *unidades[]={"primeiro","um","dois","tres","quatro","cinco",
+               "seis", "sete","oito","nove"};
+char *interm[]={"dez","onze","doze","treze",
+                 "quatorze","quinze","dezesseis",
+                 "dezessete","dezoito","dezenove"};
+char *dezenas[]={"vinte","trinta","quarenta","cinquenta",
+                 "sessenta","setenta","oitenta","noventa"};
+char *meses[]={"janeiro","fevereiro","marco","abril","maio",
+               "junho","julho","agosto","setembro",
+               "outubro","novembro","dezembro"};
+
+char* get_dd_str(int dd);
+char* get_yy_str(int yy);
+void print_formatted_date(char *str);
+#line 462 "lex.yy.c"
+#line 463 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -668,9 +677,10 @@ YY_DECL
 		}
 
 	{
-#line 6 "p_b.l"
+#line 20 "p_g.l"
 
-#line 673 "lex.yy.c"
+
+#line 683 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -697,13 +707,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 15 )
+				if ( yy_current_state >= 17 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 36 );
+		while ( yy_base[yy_current_state] != 15 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -729,29 +739,20 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 7 "p_b.l"
-{sscanf(yytext," %d", &h); 
-         if (h == 12) printf(" PM 12:"); 
-         else printf(" PM %02d:", h-12);}
+#line 22 "p_g.l"
+{ print_formatted_date(yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 10 "p_b.l"
-{sscanf(yytext," %d", &h); 
-         if (h==0) printf(" AM 12:");
-         else printf(" AM %02d:", h);}
+#line 23 "p_g.l"
+{ ECHO; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "p_b.l"
+#line 25 "p_g.l"
 ECHO;
 	YY_BREAK
-case 4:
-YY_RULE_SETUP
-#line 14 "p_b.l"
-ECHO;
-	YY_BREAK
-#line 754 "lex.yy.c"
+#line 755 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1048,7 +1049,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 15 )
+			if ( yy_current_state >= 17 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1076,11 +1077,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 15 )
+		if ( yy_current_state >= 17 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 14);
+	yy_is_jam = (yy_current_state == 16);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1756,4 +1757,61 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 14 "p_b.l"
+#line 25 "p_g.l"
+
+
+void print_formatted_date(char *str)
+{
+    // change occurrences of '/' into '\0'
+    str[2] = str[5] = '\0';
+    int dd = atoi(str);
+    int mm = atoi(str + 3);
+    int yy = atoi(str + 6);
+
+    int error = 0;
+
+    char *dd_str, *mm_str, *yy_str;
+    
+    printf("%s de %s de %s",
+            get_dd_str(dd),
+            meses[mm-1],
+            get_yy_str(yy));
+
+}
+
+// gets string for a two digit number
+char* get_dd_str(int dd)
+{
+    static char buf[32] = {0};
+    buf[0] = '\0';
+    char *dd_str;
+    if (dd == 1) {
+        dd_str = unidades[0];   // "primeiro"
+    } else if (2 <= dd && dd <= 9) {
+        dd_str = unidades[dd];
+    } else if (10 <= dd && dd <= 19) {
+        dd_str = interm[dd-10];
+    } else {
+        int idx = (dd - 20)/10; // calcula posicao no vetor dezenas
+        strncat(buf, dezenas[idx], sizeof(buf));
+        idx = dd - ((dd/10)*10); // calcula unidade (e posicao no vetor)
+        if (idx > 0) {
+            strncat(buf, " e ", sizeof(buf));
+            strncat(buf, unidades[idx], sizeof(buf));
+        }
+        dd_str = buf;
+    }
+
+    return dd_str;
+}
+
+// ugly hack that only supports dates after 2001
+char *get_yy_str(int yy) {
+    static char buf[32] = {0};
+    buf[0] = '\0';
+    yy %= 100;
+    strncat(buf, "dois mil e ", sizeof(buf));
+    strncat(buf, get_dd_str(yy), sizeof(buf));
+    return buf;
+}
+
