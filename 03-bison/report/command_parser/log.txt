@@ -1,0 +1,207 @@
+Starting parse
+Entering state 0
+Stack now 0
+Reading a token
+--(end of buffer or a NUL)
+--accepting rule at line 13 ("#comment
+")
+--accepting rule at line 16 ("main")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 1
+Stack now 0 1
+Reading a token
+--accepting rule at line 14 (":")
+Next token is token COLON ()
+Shifting token COLON ()
+Entering state 5
+Stack now 0 1 5
+Reducing stack by rule 6 (line 27):
+   $1 = token TOKEN ()
+   $2 = token COLON ()
+-> $$ = nterm command_decl ()
+Entering state 4
+Stack now 0 4
+Reading a token
+--accepting rule at line 23 (" ")
+--accepting rule at line 16 ("teste")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 9
+Stack now 0 4 9
+Reducing stack by rule 8 (line 41):
+   $1 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 4 10
+Reading a token
+--accepting rule at line 15 (",")
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 13
+Stack now 0 4 10 13
+Reading a token
+--accepting rule at line 23 (" ")
+--accepting rule at line 16 ("teste2")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 14
+Stack now 0 4 10 13 14
+Reducing stack by rule 7 (line 37):
+   $1 = nterm arglist ()
+   $2 = token COMMA ()
+   $3 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 4 10
+Reading a token
+--accepting rule at line 15 (",")
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 13
+Stack now 0 4 10 13
+Reading a token
+--accepting rule at line 23 (" ")
+--accepting rule at line 16 ("teste3")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 14
+Stack now 0 4 10 13 14
+Reducing stack by rule 7 (line 37):
+   $1 = nterm arglist ()
+   $2 = token COMMA ()
+   $3 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 4 10
+Reading a token
+--accepting rule at line 21 ("
+")
+Next token is token NEWLINE ()
+Reducing stack by rule 5 (line 26):
+   $1 = nterm command_decl ()
+   $2 = nterm arglist ()
+-> $$ = nterm command_def ()
+Entering state 3
+Stack now 0 3
+Next token is token NEWLINE ()
+Shifting token NEWLINE ()
+Entering state 7
+Stack now 0 3 7
+Reading a token
+--accepting rule at line 16 ("rm")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 1
+Stack now 0 3 7 1
+Reading a token
+--accepting rule at line 14 (":")
+Next token is token COLON ()
+Shifting token COLON ()
+Entering state 5
+Stack now 0 3 7 1 5
+Reducing stack by rule 6 (line 27):
+   $1 = token TOKEN ()
+   $2 = token COLON ()
+-> $$ = nterm command_decl ()
+Entering state 4
+Stack now 0 3 7 4
+Reading a token
+--accepting rule at line 23 (" ")
+--accepting rule at line 16 ("rm-1")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 9
+Stack now 0 3 7 4 9
+Reducing stack by rule 8 (line 41):
+   $1 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 3 7 4 10
+Reading a token
+--accepting rule at line 15 (",")
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 13
+Stack now 0 3 7 4 10 13
+Reading a token
+--accepting rule at line 23 (" ")
+--accepting rule at line 16 ("rm-2")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 14
+Stack now 0 3 7 4 10 13 14
+Reducing stack by rule 7 (line 37):
+   $1 = nterm arglist ()
+   $2 = token COMMA ()
+   $3 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 3 7 4 10
+Reading a token
+--accepting rule at line 15 (",")
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 13
+Stack now 0 3 7 4 10 13
+Reading a token
+--accepting rule at line 23 (" ")
+--(end of buffer or a NUL)
+--accepting rule at line 16 ("rm-3")
+Next token is token TOKEN ()
+Shifting token TOKEN ()
+Entering state 14
+Stack now 0 3 7 4 10 13 14
+Reducing stack by rule 7 (line 37):
+   $1 = nterm arglist ()
+   $2 = token COMMA ()
+   $3 = token TOKEN ()
+-> $$ = nterm arglist ()
+Entering state 10
+Stack now 0 3 7 4 10
+Reading a token
+--(end of buffer or a NUL)
+--EOF (start condition 0)
+Next token is token END_OF_FILE ()
+Reducing stack by rule 5 (line 26):
+   $1 = nterm command_decl ()
+   $2 = nterm arglist ()
+-> $$ = nterm command_def ()
+Entering state 3
+Stack now 0 3 7 3
+Next token is token END_OF_FILE ()
+Shifting token END_OF_FILE ()
+Entering state 8
+Stack now 0 3 7 3 8
+Reducing stack by rule 3 (line 23):
+   $1 = nterm command_def ()
+   $2 = token END_OF_FILE ()
+-> $$ = nterm file ()
+Entering state 12
+Stack now 0 3 7 12
+Reducing stack by rule 1 (line 21):
+   $1 = nterm command_def ()
+   $2 = token NEWLINE ()
+   $3 = nterm file ()
+-> $$ = nterm file ()
+Entering state 2
+Stack now 0 2
+Reading a token
+--(end of buffer or a NUL)
+--EOF (start condition 0)
+Next token is token END_OF_FILE ()
+Error: popping nterm file ()
+Stack now 0
+Cleanup: discarding lookahead token END_OF_FILE ()
+Stack now 0
+command: main
+arg: teste
+arg: teste2
+arg: teste3
+command: rm
+arg: rm-1
+arg: rm-2
+arg: rm-3
+error (line 3):
+syntax error
+command: "main", args: "teste", "teste2", "teste3", "rm-1", "rm-2", "rm-3"
