@@ -1,0 +1,117 @@
+\documentclass{article}
+
+\usepackage[portuguese]{babel}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage[section]{placeins}
+
+\title{Atividade em aula 04}
+\author{Vinícius de Oliveira Peixoto Rodrigues (245294)}
+\date{Agosto de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Questão 1}
+O programa cria um socket, binda em uma porta e escuta/faz \textit{echo} de todas as mensagens recebidas na porta.
+
+\section*{Questão 2}
+\begin{itemize}
+    \item \texttt{GET}: faz a requisição de um arquivo do servidor, passando o caminho para o arquivo e opcionalmente especificando a versão do protocolo.
+    \item \texttt{Accept}: especifica os tipos de arquivos aceitos para requisição
+    \item \texttt{Accept-encoding}: os encodings aceitos
+    \item \texttt{Accept-language}: as linguagens aceitas
+    \item \texttt{Cache-control}: diretivas de cache (max age, max stale, min fresh, etc)
+    \item \texttt{Connection}: tipo da conexão (por exemplo, keep-alive)
+    \item \texttt{Host}: o host que está fazendo a requisição
+    \item \texttt{User-agent}: o agente (por exemplo, navegador) que está enviando a requisição
+\end{itemize}
+
+\section*{Questão 3}
+
+\subsection*{Item (a)}
+
+É necessário porque a porta padrão do \texttt{telnet} é a porta 23, e o servidor não aceita conexões HTTP nessa porta.
+
+\subsection*{Item (b)}
+
+A conexão também funciona, porque a porta 443 é a porta padrão para conexões HTTPS.
+
+\section*{Questão 4}
+
+\subsection*{Item (a)}
+\begin{verbatim}
+    HTTP/1.1 302 Found
+    Date: Wed, 14 Sep 2022 18:08:11 GMT
+    Server: Apache
+    Location: https://www.dca.fee.unicamp.br/
+    Content-Length: 215
+    Content-Type: text/html; charset=iso-8859-1
+    
+    <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+    <html><head>
+    <title>302 Found</title>
+    </head><body>
+    <h1>Found</h1>
+    <p>The document has moved <a href="https://www.dca.fee.unicamp.br/">here</a>.</p>
+    </body></html>
+\end{verbatim}
+
+\subsection*{Item (b)}
+\begin{verbatim}
+    HTTP/1.1 302 Found
+    Date: Wed, 14 Sep 2022 18:30:29 GMT
+    Server: Apache
+    Location: https://www.dca.fee.unicamp.br/
+    Content-Type: text/html; charset=iso-8859-1
+\end{verbatim}
+
+Conforme esperado, nós recebemos somente o cabeçalho (o \texttt{HEAD} é idêntico ao \texttt{GET}, exceto que o servidor não deve enviar o corpo da mensagem).
+
+\subsection*{Item (c)}
+\begin{verbatim}
+    HTTP/1.1 302 Found
+    Date: Wed, 14 Sep 2022 18:34:45 GMT
+    Server: Apache
+    Location: https://www.dca.fee.unicamp.br/index.html
+    Content-Length: 225
+    Content-Type: text/html; charset=iso-8859-1
+
+    <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+    <html><head>
+    <title>302 Found</title>
+    </head><body>
+    <h1>Found</h1>
+    <p>The document has moved <a href="https://www.dca.fee.unicamp.br/index.html">here</a>.</p>
+    </body></html>
+
+\end{verbatim}
+
+Nesse caso não houve diferença, visto que o servidor está redirecionando requisições HTTP para a versão HTTPS do site. 
+
+\subsection*{Item (d)}
+\begin{verbatim}
+    Host: www.dca.fee.unicamp.brHTTP/1.1 400 Bad Request
+    Date: Wed, 14 Sep 2022 18:37:38 GMT
+    Server: Apache
+    Content-Length: 226
+    Connection: close
+    Content-Type: text/html; charset=iso-8859-1
+
+    <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+    <html><head>
+    <title>400 Bad Request</title>
+    </head><body>
+    <h1>Bad Request</h1>
+    <p>Your browser sent a request that this server could not understand.<br />
+    </p>
+    </body></html>
+    Connection closed by foreign host.
+\end{verbatim}
+
+O servidor retorna um erro "400 - Bad request", visto que faltou o campo indicando o caminho do arquivo requisitado.
+
+\end{document}
