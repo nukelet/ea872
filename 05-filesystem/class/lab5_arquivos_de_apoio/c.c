@@ -17,13 +17,14 @@ int fd, i;
         exit(errno);
     }
     write (fd, "Este e' o arquivo de teste c1: ", 31);
-    lseek (fd, 20031, SEEK_SET);  /*  consulte man !  */
+    int err = lseek (fd, 20031, SEEK_SET);  /*  consulte man !  */
+    printf("lseek retval: %d\n", errno);
     write (fd, " fim do arquivo testec1.txt\n", 28);
     close (fd);
 
     fd = creat("testec2.txt", 0600);
     write (fd, "Este e' o arquivo de teste c2: ", 31);
-    for (i=0; i<20000; i++)
+    for (i=0; i<2000000; i++)
         write(fd,"$",1);
     write (fd, " fim do arquivo testec2.txt\n", 28);
     close (fd);

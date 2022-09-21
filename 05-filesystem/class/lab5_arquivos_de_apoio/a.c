@@ -12,6 +12,10 @@ int main()
 int fd1, fd2, i;
 char buf[30];
 
+printf("O_RDONLY: %d\n", O_RDONLY);
+printf("O_WRONLY: %d\n", O_WRONLY);
+printf("O_RDWR: %d\n", O_RDWR);
+
     if ((fd1 = creat("teste.a", 0600)) == -1)
         printf("Erro na 1a. operacao = %d\n", errno);
     if ((i = write (fd1, "Este e' o programa de teste 1", 29)) == -1)
