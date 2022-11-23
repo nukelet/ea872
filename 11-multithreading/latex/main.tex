@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage[portuguese]{babel}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage[section]{placeins}
+
+\title{Atividade em sala 11}
+\author{Vinícius de Oliveira Peixoto Rodrigues (245294)}
+\date{Novembro de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Questão (a)}
+
+Os dois parâmetros são mutuamente exclusivos:
+
+\begin{itemize}
+    \item \texttt{rate}: o servidor gera conexões novas com um servidor a uma taxa de \texttt{rate} conexões por segundo
+    \item \texttt{parallel}: o servidor tenta manter um dado número de conexões ativas com o servidor
+\end{itemize}
+
+\section*{Questão (b)}
+
+\begin{verbatim}
+    *** ccuec-parallel.txt ***
+    3771 fetches, 5 max parallel, 414810 bytes, in 10 seconds
+    110 mean bytes/connection
+    377.1 fetches/sec, 41481 bytes/sec
+    msecs/connect: 5.87332 mean, 13.013 max, 0.424 min
+    msecs/first-response: 6.68218 mean, 15.686 max, 2.926 min
+    HTTP response codes:
+      code 200 -- 3771
+    *** ccuec-rate.txt ***
+    49 fetches, 1 max parallel, 5390 bytes, in 10.0248 seconds
+    110 mean bytes/connection
+    4.8879 fetches/sec, 537.669 bytes/sec
+    msecs/connect: 26.0648 mean, 31.769 max, 25.139 min
+    msecs/first-response: 29.1671 mean, 33.783 max, 27.645 min
+    HTTP response codes:
+      code 200 -- 49
+    *** ccuec.txt ***
+    https://www.ccuec.unicamp.br
+    *** fee-parallel.txt ***
+    172 fetches, 5 max parallel, 8.11995e+06 bytes, in 10.0032 seconds
+    47209 mean bytes/connection
+    17.1945 fetches/sec, 811736 bytes/sec
+    msecs/connect: 0.311424 mean, 3.263 max, 0.134 min
+    msecs/first-response: 270.194 mean, 323.389 max, 237.673 min
+    HTTP response codes:
+      code 200 -- 172
+    *** fee-rate.txt ***
+    48 fetches, 3 max parallel, 2.26603e+06 bytes, in 10.0263 seconds
+    47209 mean bytes/connection
+    4.7874 fetches/sec, 226008 bytes/sec
+    msecs/connect: 28.1103 mean, 29.985 max, 25.692 min
+    msecs/first-response: 238.871 mean, 270.893 max, 215.767 min
+    HTTP response codes:
+      code 200 -- 48
+    *** fee.txt ***
+    https://www.feec.unicamp.br/
+\end{verbatim}
+
+Servidores usados:
+
+\begin{itemize}
+    \item https://www.feec.unicamp.br/
+    \item https://www.ccuec.unicamp.br/
+\end{itemize}
+
+Para os testes \texttt{*-parallel.txt}, foi passado o comando
+
+\begin{verbatim}
+    ./http_load -parallel 5 -seconds 10 
+\end{verbatim}
+
+Para os \texttt{*-rate.txt}:
+
+\begin{verbatim}
+    ./http_load -rate 5 -seconds 10 
+\end{verbatim}
+
+O endereço IP da máquina usada foi \texttt{143.106.148.123}.
+
+\section*{Questão (c)}
+
+Percebe-se que os servidores conseguem fazer muito mais fetches/s quando os requests são feitos em paralelo, visto que existe um gasto de tempo desnecessário na abertura/fechamento de conexões.
+
+\end{document}
