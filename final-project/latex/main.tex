@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[portuguese]{babel}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage[section]{placeins}
+
+\title{Relatório Final}
+\author{Vinícius de Oliveira Peixoto Rodrigues (245294)}
+\date{Dezembro de 2022}
+
+\begin{document}
+\maketitle
+
+\section*{Descrição do projeto}
+
+\subsection*{Objetivo}
+O objetivo do projeto foi construir o esqueleto de um servidor HTTP com os seguintes componentes:
+
+\begin{itemize}
+    \item Parser de HTTP
+    \item Interface com o sistema de arquivos
+    \item Capacidade de atender requisições HTTP simples (GET, HEAD, OPTIONS, TRACE, PUT)
+    \item Sistema de autenticação de acesso
+    \item Execução de tarefas em paralelo
+\end{itemize}
+
+\subsection*{Especificações}
+
+O servidor deve ser capaz de escutar requisições HTTP em uma dada porta e criar threads para atender as requisições. Além disso, ele deve ser capaz de:
+
+\begin{itemize}
+    \item Mapear recursos para caminhos reais no sistema de arquivos, tomando como raiz um diretório definido
+    \item Realizar controle de acesso por meio de arquivos \texttt{.htaccess}, usando \textit{salt}
+\end{itemize}
+
+\end{document}
